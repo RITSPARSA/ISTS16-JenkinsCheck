@@ -5,15 +5,6 @@ from hostManager import HostMan
 import jenkins, json
 import sys, logging
 
-def getTeamFromIp(ip):
-    '''Return the team number based on the IP
-    '''
-    try:
-        return int(ip.split(".")[2])
-    except:
-        logging.error("unknown ip {}".format(ip))
-        return False
-
 def iterateHosts(mask, count, action):
     '''
     Iterate through the number of hosts specified, Calculate the IP to use,
@@ -28,6 +19,7 @@ def connect(ip):
     user = Config.USERNAME
     pw = Config.PASSWORDS.get(ip, 'Changeme-2018')
     try:
+        logging.debug("{} - Attempting to login {}:{}".format(ip, user, pw))
         return jenkins.Jenkins(url, user, pw, timeout=Config.TIMEOUT)
     except Exception as e:
         logging.warn("Issue connecting to {}: {}").format(url, e)
