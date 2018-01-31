@@ -1,0 +1,145 @@
+2018-01-31 02:58:58,989 INFO: Started Program
+2018-01-31 02:59:02,516 INFO: Submitted job to 10.80.100.3
+2018-01-31 02:59:02,546 INFO: Triggering build on 10.80.100.3
+2018-01-31 02:59:30,837 INFO: Build 1 for 10.80.100.3 succeeded
+2018-01-31 03:03:58,778 INFO: Started Program
+2018-01-31 03:03:58,778 INFO: Starting Round 1
+2018-01-31 03:04:01,875 INFO: Triggering build on 10.80.100.3
+2018-01-31 03:04:30,044 INFO: Build 2 for 10.80.100.3 succeeded
+2018-01-31 03:04:30,044 INFO: Starting Round 2
+2018-01-31 03:04:33,165 INFO: Triggering build on 10.80.100.3
+2018-01-31 03:05:01,335 INFO: Build 3 for 10.80.100.3 succeeded
+2018-01-31 03:05:01,335 INFO: Starting Round 3
+2018-01-31 03:05:04,465 INFO: Triggering build on 10.80.100.3
+2018-01-31 03:05:32,630 INFO: Build 4 for 10.80.100.3 succeeded
+2018-01-31 03:05:32,631 INFO: Starting Round 4
+2018-01-31 03:05:35,757 INFO: Triggering build on 10.80.100.3
+2018-01-31 03:06:03,928 INFO: Build 5 for 10.80.100.3 succeeded
+2018-01-31 03:06:03,928 INFO: Starting Round 5
+2018-01-31 03:06:07,055 INFO: Triggering build on 10.80.100.3
+2018-01-31 03:06:35,217 INFO: Build 6 for 10.80.100.3 succeeded
+2018-01-31 03:17:44,441 INFO: ====== Started Program ======
+2018-01-31 03:17:44,441 INFO: ----- Starting Round 1-----
+2018-01-31 03:17:44,446 WARNING: 10.80.100.1 - Couldnt connect
+2018-01-31 03:17:47,503 WARNING: 10.80.100.2 - Couldnt connect
+2018-01-31 03:17:47,547 INFO: 10.80.100.3 - Triggering build
+2018-01-31 03:17:47,549 WARNING: 10.80.100.4 - Couldnt connect
+2018-01-31 03:17:50,639 WARNING: 10.80.100.5 - Couldnt connect
+2018-01-31 03:17:55,646 WARNING: 10.2.1.10 - Couldnt connect
+2018-01-31 03:18:00,653 WARNING: 10.2.2.10 - Couldnt connect
+2018-01-31 03:18:05,660 WARNING: 10.2.3.10 - Couldnt connect
+2018-01-31 03:18:10,667 WARNING: 10.2.4.10 - Couldnt connect
+2018-01-31 03:18:41,908 INFO: ====== Started Program ======
+2018-01-31 03:18:41,908 DEBUG: Loading new passwords
+2018-01-31 03:18:41,908 DEBUG: Resetting known hosts
+2018-01-31 03:18:41,908 INFO: ----- Starting Round 1-----
+2018-01-31 03:18:41,913 WARNING: 10.80.100.1 - Couldnt connect
+2018-01-31 03:18:44,975 WARNING: 10.80.100.2 - Couldnt connect
+2018-01-31 03:18:45,003 INFO: 10.80.100.3 - Triggering build
+2018-01-31 03:18:45,006 WARNING: 10.80.100.4 - Couldnt connect
+2018-01-31 03:18:48,111 WARNING: 10.80.100.5 - Couldnt connect
+2018-01-31 03:18:53,117 WARNING: 10.2.1.10 - Couldnt connect
+2018-01-31 03:18:58,124 WARNING: 10.2.2.10 - Couldnt connect
+2018-01-31 03:19:03,130 WARNING: 10.2.3.10 - Couldnt connect
+2018-01-31 03:19:08,137 WARNING: 10.2.4.10 - Couldnt connect
+2018-01-31 03:19:13,145 WARNING: 10.2.5.10 - Couldnt connect
+2018-01-31 03:19:13,187 INFO: Build 8 for 10.80.100.3 succeeded
+2018-01-31 03:19:13,187 DEBUG: Loading new passwords
+2018-01-31 03:19:13,188 DEBUG: Resetting known hosts
+2018-01-31 03:19:13,188 INFO: ----- Starting Round 2-----
+2018-01-31 03:19:13,189 WARNING: 10.80.100.1 - Couldnt connect
+2018-01-31 03:19:16,271 WARNING: 10.80.100.2 - Couldnt connect
+2018-01-31 03:19:16,310 INFO: 10.80.100.3 - Triggering build
+2018-01-31 03:19:16,312 WARNING: 10.80.100.4 - Couldnt connect
+2018-01-31 03:19:19,407 WARNING: 10.80.100.5 - Couldnt connect
+2018-01-31 03:19:24,410 WARNING: 10.2.1.10 - Couldnt connect
+2018-01-31 03:19:29,416 WARNING: 10.2.2.10 - Couldnt connect
+2018-01-31 03:19:34,423 WARNING: 10.2.3.10 - Couldnt connect
+2018-01-31 03:19:39,426 WARNING: 10.2.4.10 - Couldnt connect
+2018-01-31 03:19:44,432 WARNING: 10.2.5.10 - Couldnt connect
+2018-01-31 03:19:44,486 INFO: Build 9 for 10.80.100.3 succeeded
+2018-01-31 03:31:28,426 INFO: ====== Started Program ======
+2018-01-31 03:31:28,427 DEBUG: Loading new passwords
+2018-01-31 03:31:28,427 DEBUG: Resetting known hosts
+2018-01-31 03:31:28,427 INFO: ----- Starting Round 1-----
+2018-01-31 03:32:54,140 INFO: ====== Started Program ======
+2018-01-31 03:32:54,140 DEBUG: Loading new passwords
+2018-01-31 03:32:54,140 DEBUG: Resetting known hosts
+2018-01-31 03:32:54,140 INFO: ----- Starting Round 1-----
+2018-01-31 03:32:54,145 WARNING: 10.80.100.1 - Couldn't connect to host
+2018-01-31 03:32:54,146 ERROR: Error in request: [Errno 111] Connection refused
+2018-01-31 03:32:57,199 WARNING: 10.80.100.2 - Couldn't connect to host
+2018-01-31 03:33:00,271 ERROR: Error in request: [Errno 113] No route to host
+2018-01-31 03:33:00,308 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:33:00,310 WARNING: 10.80.100.4 - Couldn't connect to host
+2018-01-31 03:33:00,312 ERROR: Error in request: [Errno 111] Connection refused
+2018-01-31 03:33:03,407 WARNING: 10.80.100.5 - Couldn't connect to host
+2018-01-31 03:33:06,479 ERROR: Error in request: [Errno 113] No route to host
+2018-01-31 03:33:11,481 WARNING: 10.2.1.10 - Couldn't connect to host
+2018-01-31 03:33:16,487 ERROR: Error in request: timed out
+2018-01-31 03:33:21,495 WARNING: 10.2.2.10 - Couldn't connect to host
+2018-01-31 03:33:26,501 ERROR: Error in request: timed out
+2018-01-31 03:33:31,508 WARNING: 10.2.3.10 - Couldn't connect to host
+2018-01-31 03:33:36,515 ERROR: Error in request: timed out
+2018-01-31 03:33:41,521 WARNING: 10.2.4.10 - Couldn't connect to host
+2018-01-31 03:33:46,527 ERROR: Error in request: timed out
+2018-01-31 03:33:51,534 WARNING: 10.2.5.10 - Couldn't connect to host
+2018-01-31 03:33:56,541 ERROR: Error in request: timed out
+2018-01-31 03:36:13,146 INFO: ====== Started Program ======
+2018-01-31 03:36:13,146 DEBUG: Loading new passwords
+2018-01-31 03:36:13,146 DEBUG: Resetting known hosts
+2018-01-31 03:36:13,146 INFO: ----- Starting Round 1-----
+2018-01-31 03:36:13,151 WARNING: 10.80.100.1 - Couldn't connect to host
+2018-01-31 03:36:16,239 WARNING: 10.80.100.2 - Couldn't connect to host
+2018-01-31 03:36:16,268 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:36:16,270 WARNING: 10.80.100.4 - Couldn't connect to host
+2018-01-31 03:36:19,375 WARNING: 10.80.100.5 - Couldn't connect to host
+2018-01-31 03:36:24,382 WARNING: 10.2.1.10 - Couldn't connect to host
+2018-01-31 03:37:00,977 INFO: ====== Started Program ======
+2018-01-31 03:37:00,977 DEBUG: Loading new passwords
+2018-01-31 03:37:00,977 DEBUG: Resetting known hosts
+2018-01-31 03:37:00,978 INFO: ----- Starting Round 1-----
+2018-01-31 03:37:00,982 WARNING: 10.80.100.1 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:37:04,047 WARNING: 10.80.100.2 - Error in request: [Errno 113] No route to host
+2018-01-31 03:37:04,067 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:37:04,069 WARNING: 10.80.100.4 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:37:07,119 WARNING: 10.80.100.5 - Error in request: [Errno 113] No route to host
+2018-01-31 03:37:12,126 WARNING: 10.2.1.10 - Error in request: timed out
+2018-01-31 03:37:17,129 WARNING: 10.2.2.10 - Error in request: timed out
+2018-01-31 03:37:22,136 WARNING: 10.2.3.10 - Error in request: timed out
+2018-01-31 03:37:27,143 WARNING: 10.2.4.10 - Error in request: timed out
+2018-01-31 03:37:32,149 WARNING: 10.2.5.10 - Error in request: timed out
+2018-01-31 03:37:32,149 ERROR: 10.80.100.3 - Failure in check. name 'build_num' is not defined
+2018-01-31 03:37:32,153 DEBUG: Loading new passwords
+2018-01-31 03:37:32,153 DEBUG: Resetting known hosts
+2018-01-31 03:37:32,153 INFO: ----- Starting Round 2-----
+2018-01-31 03:37:32,155 WARNING: 10.80.100.1 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:37:35,215 WARNING: 10.80.100.2 - Error in request: [Errno 113] No route to host
+2018-01-31 03:37:35,240 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:37:35,242 WARNING: 10.80.100.4 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:37:38,351 WARNING: 10.80.100.5 - Error in request: [Errno 113] No route to host
+2018-01-31 03:37:43,358 WARNING: 10.2.1.10 - Error in request: timed out
+2018-01-31 03:37:48,365 WARNING: 10.2.2.10 - Error in request: timed out
+2018-01-31 03:39:50,682 INFO: ====== Started Program ======
+2018-01-31 03:39:50,683 DEBUG: Loading new passwords
+2018-01-31 03:39:50,683 DEBUG: Resetting known hosts
+2018-01-31 03:39:50,683 INFO: ----- Starting Round 1-----
+2018-01-31 03:39:50,687 WARNING: 10.80.100.1 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:39:53,775 WARNING: 10.80.100.2 - Error in request: [Errno 113] No route to host
+2018-01-31 03:39:53,801 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:39:53,803 WARNING: 10.80.100.4 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:39:56,911 WARNING: 10.80.100.5 - Error in request: [Errno 113] No route to host
+2018-01-31 03:40:01,918 WARNING: 10.2.1.10 - Error in request: timed out
+2018-01-31 03:40:06,925 WARNING: 10.2.2.10 - Error in request: timed out
+2018-01-31 03:40:11,928 WARNING: 10.2.3.10 - Error in request: timed out
+2018-01-31 03:40:16,935 WARNING: 10.2.4.10 - Error in request: timed out
+2018-01-31 03:40:21,942 WARNING: 10.2.5.10 - Error in request: timed out
+2018-01-31 03:40:21,978 INFO: 10.80.100.3 - Build succeeded
+2018-01-31 03:40:21,979 DEBUG: Loading new passwords
+2018-01-31 03:40:21,979 DEBUG: Resetting known hosts
+2018-01-31 03:40:21,979 INFO: ----- Starting Round 2-----
+2018-01-31 03:40:21,980 WARNING: 10.80.100.1 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:40:25,071 WARNING: 10.80.100.2 - Error in request: [Errno 113] No route to host
+2018-01-31 03:40:25,097 INFO: 10.80.100.3 - Triggering build on host
+2018-01-31 03:40:25,100 WARNING: 10.80.100.4 - Error in request: [Errno 111] Connection refused
+2018-01-31 03:40:28,207 WARNING: 10.80.100.5 - Error in request: [Errno 113] No route to host

@@ -1,8 +1,18 @@
 # Iterate through all the hosts
 from creds import creds
 from config import Config
+from hostManager import HostMan
 import jenkins, json
-import sys
+import sys, logging
+
+def getTeamFromIp(ip):
+    '''Return the team number based on the IP
+    '''
+    try:
+        return int(ip.split(".")[2])
+    except:
+        logging.error("unknown ip {}".format(ip))
+        return False
 
 def iterateHosts(mask, count, action):
     '''
@@ -11,45 +21,42 @@ def iterateHosts(mask, count, action):
     '''
     for i in range(1,count+1):
         ip = mask.replace("x",str(i))
-        action(ip, i)
+        action(ip)
 
-def connect(url, user, pw):
+def connect(ip):
+    url = "http://{}:8080".format(ip)
+    user = Config.USERNAME
+    pw = Config.PASSWORDS.get(ip, 'Changeme-2018')
     try:
-        return jenkins.Jenkins(url, user, pw, timeout=10)
-    except Exception:
-        print("Issue connecting to {}").format(url)
+        return jenkins.Jenkins(url, user, pw, timeout=Config.TIMEOUT)
+    except Exception as e:
+        logging.warn("Issue connecting to {}: {}").format(url, e)
         return False
 
 ''' Build if connection there '''
-def build(ip, teamNum):
-    '''Stub Function'''
-    print("Building on "+ ip)
-    if submitJob(ip, teamNum):
-        pws=json.load(open('passwords.json'))
-        # connect to the server (server address, username, password, timeout)
-        print('http://{}:8080'.format(ip))
-        server = connect('http://{}:8080'.format(ip), creds.user,
-            pws.get(teamNum, 'Changeme-2018'))
+def build(ip):
+    '''Trigger a build job on a remote server'''
+    server = connect(ip)
+    if submitJob(server, ip):
         try:
             # start the job (name of the job to build)
             server.build_job(creds.buildName)
+            logging.info("{} - Triggering build on host".format(ip))
+            HostMan.passHost(ip)
             return True
-        except Exception:
-            print("Couldn't connect to "+ ip)
+        except Exception as e:
+            logging.error(e)
+            HostMan.failHost(ip)
             return False
-    return
+    return False
 
-def check(ip, teamNum):
+
+def check(ip):
     '''Stub Function'''
-    print("Checking build on "+ ip)
-
     # the desired build result
     success='SUCCESS'
-
-    pws=json.load(open('passwords.json'))
-    # connect to the server (server address, username, password, timeout)
-    server = connect('http://{}:8080'.format(ip), creds.user,
-        pws.get(teamNum, 'Changeme-2018'))
+    # connect to the server 
+    server = connect(ip)
     try:
         # get the last build number (name of the build to get)
         build_num = server.get_job_info(creds.buildName)['lastBuild']['number']
@@ -57,37 +64,47 @@ def check(ip, teamNum):
         output = server.get_build_console_output(creds.buildName, build_num)
         # ensure output contains success and whiteteamKEY
         if (success in output) and (creds.whiteteamKEY in output):
-            print("Build {0} for {1} succeeded".format(build_num, ip))
+            logging.info("{} - Build succeeded".format(ip))
         else:
-            print("Build {0} for {1} FAILED".format(build_num, ip))
+            logging.info("{} - Build failed".format(ip))
         return True
-    except Exception:
-        print("Couldn't connect to "+ ip)
+    except Exception as e:
+        logging.error("{} - Failure in check. {}".format(ip, e))
         return False
-    return
 
-def submitJob(ip, teamNum):
-    pws=json.load(open('passwords.json'))
-    # connect to the server (server address, username, password, timeout)
-    server = connect('http://{}:8080'.format(ip), creds.user,
-        pws.get(teamNum, 'Changeme-2018'))
+def submitJob(server, ip):
     try:
         if not server.job_exists(creds.buildName):
             # read xml file into variable
             xml=open(creds.xmlFile, 'r').read()
             server.create_job(creds.buildName, xml)
+            logging.info("{} - Submitted job to host".format(ip))
         return True
-    except Exception:
-        print("Couldn't connect to "+ ip)
+    except Exception as e:
+        logging.warn("{} - {}".format(ip, e))
         return False
-    return
 
 
 def main():
-    iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, build)
-    iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, build)
-    iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, check)
-    iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, check)
-
+    logging.basicConfig(filename="jenkins-check.log", level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s: %(message)s')
+    logging.info("====== Started Program ======")
+    for i in range(2):
+        # Load any changed password before each round
+        Config.PASSWORDS = json.load(open('passwords.json'))
+        logging.debug("Loading new passwords")
+        # Reset the hosts to look at
+        HostMan.nextRound()
+        logging.debug("Resetting known hosts")
+        logging.info("----- Starting Round {}-----".format(
+            HostMan.ROUND_NUM))
+        # Go through all the hosts and try to submit a job
+        iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, build)
+        iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, build)
+        # Loop through all the hosts that accepted a build
+        # and check the build status
+        for host in HostMan.WORKED:
+            check(host)
+        
 if __name__ == '__main__':
     main()

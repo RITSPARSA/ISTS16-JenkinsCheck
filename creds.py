@@ -6,6 +6,6 @@ class Credentials(object):
     # name of the XML config file
     xmlFile='Config.xml'
     # whiteteam defined key to look for in output
-    whiteteamKEY='Hello'
+    whiteteamKEY='hi'
 
 creds = Credentials()
