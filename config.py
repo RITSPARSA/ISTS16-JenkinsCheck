@@ -25,8 +25,6 @@ class Configuration(object):
         self.LINUX_XML = "jobs/bsd.xml"
         # whiteteam defined key to look for in output
         self.ROUNDFLAG='452345234523452345'
-        # name of the build to run
-        self.buildName='VegaBuild'
 
     def updateBuild(self):
         '''Increment the build number

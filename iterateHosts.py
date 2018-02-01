@@ -36,6 +36,8 @@ def incrementShips(ip, flag):
     
     
 def connect(ip):
+    '''Make a connection to the jenkins server at IP
+    '''
     url = "http://{}:8080".format(ip)
     user = Config.USERNAME
     pw = Config.PASSWORDS.get(ip, 'Changeme-2018')
@@ -46,9 +48,10 @@ def connect(ip):
         logging.warn("Issue connecting to {}: {}").format(url, e)
         return False
 
-''' Build if connection there '''
 def build(ip):
-    '''Trigger a build job on a remote server'''
+    '''Trigger a build job on a remote server
+    If the job doesnt exist, submit the job
+    '''
     server = connect(ip)
     if submitJob(server, ip):
         try:
@@ -65,7 +68,8 @@ def build(ip):
 
 
 def check(ip):
-    '''Stub Function'''
+    '''Check whether the build succeeded or failed
+    '''
     # the desired build result
     success='SUCCESS'
     # connect to the server
@@ -91,6 +95,9 @@ def check(ip):
         return False
 
 def submitJob(server, ip):
+    '''Submit a job to the server. If windows then submit windows job,
+    if linux, submit linux job
+    '''
     try:
         if not server.job_exists(Config.BUILD_NAME):
             # read xml file into variable
