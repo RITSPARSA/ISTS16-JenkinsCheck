@@ -2,11 +2,11 @@
 Jenkins Build Checker
 
 
-### bildJob.py
-This script builds a job for each address then checks the status of each job. Run: `./buildJob.py` to execute.
+### iterateHosts.py
+This will run the entire program. Designed to check, build, and create jobs on all of the hosts. It will look iterate through all of the servers, retrieve the password for that server and then build the job.
 
-### checkJob.py
-This script checks the status of the most recent build. It checks to see if it was successful and if it contains a predefined key. Run: `./checkJob.py` to execute.
+### hostManager.py
+This will keep track of the hosts from each round and return the data.
 
-### samplecreds.py
-This is a file that will contain the username, password, server address, and the predefined key.
+### config.py
+Contains the configuration settings for the server.

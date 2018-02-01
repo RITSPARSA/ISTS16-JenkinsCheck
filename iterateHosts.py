@@ -1,16 +1,15 @@
 # Iterate through all the hosts
-from creds import creds
 from config import Config
 from hostManager import HostMan
-import jenkins, json
-import sys, logging, re
+import jenkins, json, logging, re, sys, time
 
 def iterateHosts(mask, count, action):
     '''
     Iterate through the number of hosts specified, Calculate the IP to use,
     and execute "action" on the given ip
     '''
-    for i in range(1,count+1):
+    # for i in range(1,count+1):
+    for i in range(12,count+10):
         ip = mask.replace("x",str(i))
         action(ip)
 
@@ -21,6 +20,8 @@ def incrementShips(ip, flag):
     # Determine the team number based on the flag
     try:
         teamNum = re.findall('\d+', flag)[0]
+        if (int(teamNum) > 1) and (int(teamNum) < 12):
+            logging.info("{} - Ship added successfully".format(ip))
     except:
         teamNum = ip.split(".")[3]
     # Check if we are building Bombers or Guardians
@@ -67,7 +68,7 @@ def check(ip):
     '''Stub Function'''
     # the desired build result
     success='SUCCESS'
-    # connect to the server 
+    # connect to the server
     server = connect(ip)
     try:
         # get the last build number (name of the build to get)
@@ -75,7 +76,12 @@ def check(ip):
         # retrieve the output of the build (name of build, number of that build)
         output = server.get_build_console_output(Config.BUILD_NAME, build_num)
         # ensure output contains success and whiteteamKEY
-        if (success in output) and (creds.whiteteamKEY in output):
+        if (success in output) and (Config.ROUNDFLAG in output):
+            try:
+                flag = re.findall('====.+====', output)[0]
+            except:
+                flag = 'fail'
+            incrementShips(ip, flag)
             logging.info("{} - Build succeeded".format(ip))
         else:
             logging.info("{} - Build failed".format(ip))
@@ -135,10 +141,12 @@ def main():
         # Go through all the hosts and try to submit a job
         iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, build)
         iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, build)
+        # give the job time to run
+        time.sleep(5)
         # Loop through all the hosts that accepted a build
         # and check the build status
         for host in HostMan.WORKED:
             check(host)
-        
+
 if __name__ == '__main__':
     main()
