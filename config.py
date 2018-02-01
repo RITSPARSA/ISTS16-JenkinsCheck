@@ -1,5 +1,7 @@
 class Configuration(object):
     def __init__(self):
+        # Number of rounds to check
+        self.ROUNDS = 2
         # Number of teams
         self.TEAM_COUNT = 5
         # External IP mask
@@ -12,6 +14,8 @@ class Configuration(object):
         self.TIMEOUT = 5
         # Global Username
         self.USERNAME = "scoring"
+        # The project name on jenkins
+        self.BUILD_NAME = "ShipBuilder"
         # Passwords for the systems
         self.PASSWORDS = {}
         # Build config for windows

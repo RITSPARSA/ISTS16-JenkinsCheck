@@ -23,8 +23,11 @@ def incrementShips(ip, flag):
         teamNum = re.findall('\d+', flag)[0]
     except:
         teamNum = ip.split(".")[3]
+    # Check if we are building `
+    if ip.split(".")[:2] == Config.EXTERNAL_IP.split(".")[:2]:
     # add the code to increase the ship for this team
-
+    
+    
 def connect(ip):
     url = "http://{}:8080".format(ip)
     user = Config.USERNAME
@@ -79,7 +82,7 @@ def submitJob(server, ip):
     try:
         if not server.job_exists(creds.buildName):
             # read xml file into variable
-            if ip.split(".")[:2] = Config.EXTERNAL_IP.split(".")[:2]:
+            if ip.split(".")[:2] == Config.EXTERNAL_IP.split(".")[:2]:
                 # Read windows if looking at the external IP
                 xmlFile = Config.WINDOWS_XML
                 jobType = "Windows"
@@ -89,7 +92,7 @@ def submitJob(server, ip):
                 jobType = "Linux"
             # open the xml
             xml=open(xmlFile, 'r').read()
-            server.create_job(creds.buildName, xml)
+            server.create_job(Config.BUILD_NAME, xml)
             logging.info("{} - Submitted {} job to host".format(ip,
                 jobType))
         return True
@@ -102,7 +105,8 @@ def main():
     logging.basicConfig(filename="jenkins-check.log", level=logging.DEBUG,
         format='%(asctime)s %(levelname)s: %(message)s')
     logging.info("====== Started Program ======")
-    for i in range(2):
+    # Number of rounds
+    for i in range(Config.ROUNDS):
         # Load any changed password before each round
         Config.PASSWORDS = json.load(open('passwords.json'))
         logging.debug("Loading new passwords")
