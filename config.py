@@ -14,6 +14,10 @@ class Configuration(object):
         self.USERNAME = "scoring"
         # Passwords for the systems
         self.PASSWORDS = {}
+        # Build config for windows
+        self.WINDOWS_XML = "jobs/windows.xml"
+        # Build config for linux
+        self.LINUX_XML = "jobs/bsd.xml"
 
     def updateBuild(self):
         '''Increment the build number

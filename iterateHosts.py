@@ -3,7 +3,7 @@ from creds import creds
 from config import Config
 from hostManager import HostMan
 import jenkins, json
-import sys, logging
+import sys, logging, re
 
 def iterateHosts(mask, count, action):
     '''
@@ -13,6 +13,17 @@ def iterateHosts(mask, count, action):
     for i in range(1,count+1):
         ip = mask.replace("x",str(i))
         action(ip)
+
+def incrementShips(ip, flag):
+    '''Determine the type of ship based on the IP
+    Activate on a certain team based on the flag
+    '''
+    # Determine the team number based on the flag
+    try:
+        teamNum = re.findall('\d+', flag)[0]
+    except:
+        teamNum = ip.split(".")[3]
+    # add the code to increase the ship for this team
 
 def connect(ip):
     url = "http://{}:8080".format(ip)
@@ -68,9 +79,19 @@ def submitJob(server, ip):
     try:
         if not server.job_exists(creds.buildName):
             # read xml file into variable
-            xml=open(creds.xmlFile, 'r').read()
+            if ip.split(".")[:2] = Config.EXTERNAL_IP.split(".")[:2]:
+                # Read windows if looking at the external IP
+                xmlFile = Config.WINDOWS_XML
+                jobType = "Windows"
+            else:
+                # Read linux if looking at the internal IP
+                xmlFile = Config.LINUX_XML
+                jobType = "Linux"
+            # open the xml
+            xml=open(xmlFile, 'r').read()
             server.create_job(creds.buildName, xml)
-            logging.info("{} - Submitted job to host".format(ip))
+            logging.info("{} - Submitted {} job to host".format(ip,
+                jobType))
         return True
     except Exception as e:
         logging.warn("{} - {}".format(ip, e))
@@ -88,8 +109,7 @@ def main():
         # Reset the hosts to look at
         HostMan.nextRound()
         logging.debug("Resetting known hosts")
-        logging.info("----- Starting Round {}-----".format(
-            HostMan.ROUND_NUM))
+        logging.info("----- Starting Round {}-----".format(HostMan.ROUND_NUM))
         # Go through all the hosts and try to submit a job
         iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, build)
         iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, build)
