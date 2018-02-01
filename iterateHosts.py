@@ -1,16 +1,15 @@
 # Iterate through all the hosts
-from creds import creds
 from config import Config
 from hostManager import HostMan
-import jenkins, json
-import sys, logging, re
+import jenkins, json, logging, re, sys, time
 
 def iterateHosts(mask, count, action):
     '''
     Iterate through the number of hosts specified, Calculate the IP to use,
     and execute "action" on the given ip
     '''
-    for i in range(1,count+1):
+    # for i in range(1,count+1):
+    for i in range(12,count+10):
         ip = mask.replace("x",str(i))
         action(ip)
 
@@ -21,6 +20,8 @@ def incrementShips(ip, flag):
     # Determine the team number based on the flag
     try:
         teamNum = re.findall('\d+', flag)[0]
+        if (int(teamNum) > 1) and (int(teamNum) < 12):
+            logging.info("{} - Ship added successfully".format(ip))
     except:
         teamNum = ip.split(".")[3]
     # add the code to increase the ship for this team
@@ -43,7 +44,7 @@ def build(ip):
     if submitJob(server, ip):
         try:
             # start the job (name of the job to build)
-            server.build_job(creds.buildName)
+            server.build_job(Config.buildName)
             logging.info("{} - Triggering build on host".format(ip))
             HostMan.passHost(ip)
             return True
@@ -58,15 +59,20 @@ def check(ip):
     '''Stub Function'''
     # the desired build result
     success='SUCCESS'
-    # connect to the server 
+    # connect to the server
     server = connect(ip)
     try:
         # get the last build number (name of the build to get)
-        build_num = server.get_job_info(creds.buildName)['lastBuild']['number']
+        build_num = server.get_job_info(Config.buildName)['lastBuild']['number']
         # retrieve the output of the build (name of build, number of that build)
-        output = server.get_build_console_output(creds.buildName, build_num)
-        # ensure output contains success and whiteteamKEY
-        if (success in output) and (creds.whiteteamKEY in output):
+        output = server.get_build_console_output(Config.buildName, build_num)
+        # ensure output contains success and ROUNDFLAG
+        if (success in output) and (Config.ROUNDFLAG in output):
+            try:
+                flag = re.findall('====.+====', output)[0]
+            except:
+                flag = 'fail'
+            incrementShips(ip, flag)
             logging.info("{} - Build succeeded".format(ip))
         else:
             logging.info("{} - Build failed".format(ip))
@@ -77,9 +83,9 @@ def check(ip):
 
 def submitJob(server, ip):
     try:
-        if not server.job_exists(creds.buildName):
+        if not server.job_exists(Config.buildName):
             # read xml file into variable
-            if ip.split(".")[:2] = Config.EXTERNAL_IP.split(".")[:2]:
+            if ip.split(".")[:2] == Config.EXTERNAL_IP.split(".")[:2]:
                 # Read windows if looking at the external IP
                 xmlFile = Config.WINDOWS_XML
                 jobType = "Windows"
@@ -89,7 +95,7 @@ def submitJob(server, ip):
                 jobType = "Linux"
             # open the xml
             xml=open(xmlFile, 'r').read()
-            server.create_job(creds.buildName, xml)
+            server.create_job(Config.buildName, xml)
             logging.info("{} - Submitted {} job to host".format(ip,
                 jobType))
         return True
@@ -113,10 +119,12 @@ def main():
         # Go through all the hosts and try to submit a job
         iterateHosts(Config.EXTERNAL_IP, Config.TEAM_COUNT, build)
         iterateHosts(Config.INTERNAL_IP, Config.TEAM_COUNT, build)
+        # give the job time to run
+        time.sleep(5)
         # Loop through all the hosts that accepted a build
         # and check the build status
         for host in HostMan.WORKED:
             check(host)
-        
+
 if __name__ == '__main__':
     main()
