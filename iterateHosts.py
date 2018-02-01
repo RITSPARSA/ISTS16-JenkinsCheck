@@ -23,9 +23,15 @@ def incrementShips(ip, flag):
         teamNum = re.findall('\d+', flag)[0]
     except:
         teamNum = ip.split(".")[3]
-    # Check if we are building `
+    # Check if we are building Bombers or Guardians
     if ip.split(".")[:2] == Config.EXTERNAL_IP.split(".")[:2]:
+        # Wolf makes bombers
+        shipType = "Bombers"
+    else:
+        # Vega makes guardians
+        shipType = "Guardians"
     # add the code to increase the ship for this team
+    # TODO: Query the API
     
     
 def connect(ip):
@@ -46,7 +52,7 @@ def build(ip):
     if submitJob(server, ip):
         try:
             # start the job (name of the job to build)
-            server.build_job(creds.buildName)
+            server.build_job(Config.BUILD_NAME)
             logging.info("{} - Triggering build on host".format(ip))
             HostMan.passHost(ip)
             return True
@@ -65,9 +71,9 @@ def check(ip):
     server = connect(ip)
     try:
         # get the last build number (name of the build to get)
-        build_num = server.get_job_info(creds.buildName)['lastBuild']['number']
+        build_num = server.get_job_info(Config.BUILD_NAME)['lastBuild']['number']
         # retrieve the output of the build (name of build, number of that build)
-        output = server.get_build_console_output(creds.buildName, build_num)
+        output = server.get_build_console_output(Config.BUILD_NAME, build_num)
         # ensure output contains success and whiteteamKEY
         if (success in output) and (creds.whiteteamKEY in output):
             logging.info("{} - Build succeeded".format(ip))
@@ -80,7 +86,7 @@ def check(ip):
 
 def submitJob(server, ip):
     try:
-        if not server.job_exists(creds.buildName):
+        if not server.job_exists(Config.BUILD_NAME):
             # read xml file into variable
             if ip.split(".")[:2] == Config.EXTERNAL_IP.split(".")[:2]:
                 # Read windows if looking at the external IP
@@ -105,6 +111,18 @@ def main():
     logging.basicConfig(filename="jenkins-check.log", level=logging.DEBUG,
         format='%(asctime)s %(levelname)s: %(message)s')
     logging.info("====== Started Program ======")
+    
+    # TODO: Implement token stuff
+    # Get API token if the file doesnt exist
+    try:
+        # Try to read the token file
+        with open("token") as tokfil:
+            Config.API_TOK = tokfil.read().strip()
+        logging.debug("API token loaded")
+    except:
+        # Request new token
+        logging.debug("Requested new API token")
+
     # Number of rounds
     for i in range(Config.ROUNDS):
         # Load any changed password before each round
