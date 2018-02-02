@@ -1,30 +1,47 @@
 class Configuration(object):
     def __init__(self):
+        ###########################
+        ## Round/Team Information
+        ###########################
         # Number of rounds to check
         self.ROUNDS = 2
         # Number of teams
         self.TEAM_COUNT = 5
         # External IP mask
-        self.EXTERNAL_IP = "10.3.x.20"
+        self.TEAM_EXT_IP = "10.3.x.20"
         # Internal IP mask
         # self.INTERNAL_IP = "10.2.x.10"
-        self.INTERNAL_IP = "10.80.100.x"
-        # The round check we are on
-        self.BUILD_NUMBER = 0
+        self.TEAM_INT_IP = "10.80.100.x"
+
+
+
+        ###########################
+        ## Build/Check Information
+        ###########################
         # Connection Timeout in seconds
-        self.TIMEOUT = 10
-        # Global Username
-        self.USERNAME = "scoring"
+        self.CHECK_TIMEOUT = 10
+        # Username for the jenkins boxes
+        self.CHECK_USERNAME = "scoring"
         # The project name on jenkins
-        self.BUILD_NAME = "ShipBuilder"
+        self.CHECK_BUILD_NAME = "ShipBuilder"
         # Passwords for the systems
-        self.PASSWORDS = {}
+        self.CHECK_PASSWORDS = {}
         # Build config for windows
-        self.WINDOWS_XML = "jobs/windows.xml"
+        self.CHECK_WINDOWS = "jobs/windows.xml"
         # Build config for linux
-        self.LINUX_XML = "jobs/bsd.xml"
+        self.CHECK_LINUX = "jobs/bsd.xml"
         # whiteteam defined key to look for in output
-        self.ROUNDFLAG='452345234523452345'
+        self.CHECK_FLAG = 'testing'
+
+        ###########################
+        ## API Information
+        ###########################
+        self.API_TOK = ""
+        self.API_USERNAME = "theblindmice"
+        self.API_PASSWORD = "basedgodboyuan1016"
+        self.API_SHIP_URL = "http://lilbite.org:6000"
+        self.API_AUTH_URL = "http://lilbite.org:9000"
+
 
     def updateBuild(self):
         '''Increment the build number
