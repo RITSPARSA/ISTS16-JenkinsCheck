@@ -14,7 +14,6 @@ def getToken():
     endpoint = 'login'
     resp = apiRequest(url, endpoint, data=data)
     if 'token' not in resp:
-        logging.error("Cannot request token")
         raise Exception('No token in AUTH_API response')
     
     Config.API_TOK = resp['token']
@@ -36,15 +35,12 @@ def apiRequest(url, endpoint, data=None, method='POST'):
     
     if resp.status_code == 400:
         msg = "Bad request sent to API"
-        logging.error(msg)
         raise Exception(msg)
     if resp.status_code == 403:
         msg = resp.json()['error']
-        logging.error(msg)
         raise Exception(msg)
     elif resp.status_code != 200:
         msg = "API returned {} for /{}".format(resp.status_code, endpoint)
-        logging.error(msg)
         raise Exception(msg)
     resp_data = resp.json()
     return resp_data
